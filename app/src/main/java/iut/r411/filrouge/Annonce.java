@@ -1,12 +1,17 @@
 package iut.r411.filrouge;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
-public class Annonce {
+public class Annonce implements Parcelable {
 
     private String id;
     private String date;
@@ -28,6 +33,23 @@ public class Annonce {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         this.date = df.format(c);
     }
+
+    protected Annonce(Parcel in) {
+        titre = in.readString();
+
+    }
+
+    public static final Creator<Annonce> CREATOR = new Creator<Annonce>() {
+        @Override
+        public Annonce createFromParcel(Parcel in) {
+            return new Annonce(in);
+        }
+
+        @Override
+        public Annonce[] newArray(int size) {
+            return new Annonce[size];
+        }
+    };
 
     public String getDate() {
         return date;
@@ -96,5 +118,15 @@ public class Annonce {
                 ", etat=" + etat +
                 //", vendeur=" + vendeur +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(titre);
     }
 }
