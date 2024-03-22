@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Filrouge"
         tools:targetApi="31">
-        <activity android:name=".MainActivity"
+        <activity android:name=".UserActivity"
             android:exported="false"/>
         <activity
-            android:name=".UserActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
