@@ -2,7 +2,9 @@ package iut.r411.filrouge;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements Clickable {
 
     private List<Annonce> listTest;
+    private AlertDialog.Builder alertDialogBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements Clickable {
 
         TextView test = findViewById(R.id.titre);
         ListView list = findViewById(R.id.liste_annonces);
+        alertDialogBuilder = new AlertDialog.Builder(this);  // ne pas mettre getApplicationContext() ici
 
         listTest = new ArrayList<>();
 
@@ -51,8 +55,12 @@ public class MainActivity extends AppCompatActivity implements Clickable {
     @Override
     public void onClicItem(int itemIndex) {
         Log.i("Click", "Click !");
-    }
+        Log.d("Click", "clicked on = " + listTest.get(itemIndex));
+        Intent intent = new Intent(MainActivity.this, AnnonceActivity.class);
+        intent.putExtra("annonce", listTest.get(itemIndex));
+        startActivity(intent);
 
+    }
     @Override
     public Context getContext() {
         return getApplicationContext();
