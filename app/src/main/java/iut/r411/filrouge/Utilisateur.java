@@ -10,8 +10,8 @@ public class Utilisateur {
     private String prenom;
     private String mail;
     private String numTel;
-    private double note = 0.0;
-    private double sommeNotes = 0.0;
+    private float note = 0;
+    private float sommeNotes = 0;
     private int nbNotes = 0;
     private List<Annonce> annonces = new ArrayList<>();
 
@@ -24,7 +24,7 @@ public class Utilisateur {
     }
 
     //Fonction de mise à jour de la note du vendeur
-    public void majNote(double note){
+    public void majNote(float note){
         this.sommeNotes += note;
         this.nbNotes++;
         if(nbNotes!=0) { this.note = this.sommeNotes / this.nbNotes; }
@@ -55,8 +55,8 @@ public class Utilisateur {
     public String getNumTel() { return numTel; }
     public void setNumTel(String numTel) { this.numTel = numTel; }
 
-    public double getNote(){ return note; }
-    public double getSommeNotes() { return sommeNotes; }
+    public float getNote(){ return note; }
+    public float getSommeNotes() { return sommeNotes; }
     public int getNbNotes() { return nbNotes; }
 
     public List<Annonce> getAnnonces() { return annonces; }

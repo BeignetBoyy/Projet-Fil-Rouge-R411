@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".UserActivity">
 
     <TextView
         android:id="@+id/username"
@@ -18,15 +19,15 @@
 
     <ImageView
         android:id="@+id/userAvatar"
-        android:layout_width="115dp"
-        android:layout_height="104dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight="75dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth="75dp"
-        app:srcCompat="@drawable/drawable_user_avatar" />
+        android:background="@drawable/drawable_user_avatar" />
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -44,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_weight="1"
-        android:text="+33 78 18 79 15 6"
+        android:text="06 37 62 65 51"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userMail" />
@@ -55,19 +56,38 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginTop="5dp"
-        android:text="thomasportelette@gmail.com"
+        android:text="thomp06800@gmail.com"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
-    <LinearLayout
-        android:layout_width="408dp"
-        android:layout_height="514dp"
-        android:layout_marginTop="1dp"
-        android:orientation="vertical"
+    <ListView
+        android:id="@+id/liste_annonces"
+        android:layout_width="wrap_content"
+        android:layout_height="500dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userNum"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/userNum" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retour"
+        android:backgroundTint="@color/orange"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Noter"
+        android:backgroundTint="@color/orange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
