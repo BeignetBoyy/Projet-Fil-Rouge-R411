@@ -1,6 +1,11 @@
 package iut.r411.filrouge;
 
-public class Vendeur {
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Utilisateur {
     private String nom;
     private String prenom;
     private String mail;
@@ -8,10 +13,10 @@ public class Vendeur {
     private double note = 0.0;
     private double sommeNotes = 0.0;
     private int nbNotes = 0;
-    private Annonce[] annonces = null;
+    private List<Annonce> annonces = new ArrayList<>();
 
     //Constructeur de la classe
-    public Vendeur(String nom, String prenom, String mail, String numTel){
+    public Utilisateur(String nom, String prenom, String mail, String numTel){
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
@@ -19,10 +24,22 @@ public class Vendeur {
     }
 
     //Fonction de mise à jour de la note du vendeur
-    public void majNote(){
-        if(nbNotes!=0) {
-            this.note = this.sommeNotes / this.nbNotes;
-        }
+    public void majNote(double note){
+        this.sommeNotes += note;
+        this.nbNotes++;
+        if(nbNotes!=0) { this.note = this.sommeNotes / this.nbNotes; }
+        Log.i("Utilisateur","La nouvelle note de l'utilisateur est : "+note);
+    }
+
+    //Fonctions de gestion des annonces
+    public void ajoutAnnonce(Annonce annonce){
+        if(this.annonces.contains(annonce)){ Log.e("Utilisateur","L'utilisateur possède déjà cette annonce."); }
+        else{ this.annonces.add(annonce); }
+    }
+
+    public void retirerAnnonce(Annonce annonce){
+        if(this.annonces.contains(annonce)){ this.annonces.remove(annonce); }
+        else{ Log.e("Utilisateur","L'utilisateur ne possède pas cette annonce."); }
     }
 
     //Getters et Setters
@@ -42,5 +59,5 @@ public class Vendeur {
     public double getSommeNotes() { return sommeNotes; }
     public int getNbNotes() { return nbNotes; }
 
-    public Annonce[] getAnnonces() { return annonces; }
+    public List<Annonce> getAnnonces() { return annonces; }
 }
