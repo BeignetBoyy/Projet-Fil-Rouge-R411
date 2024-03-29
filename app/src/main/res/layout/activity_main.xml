@@ -52,7 +52,7 @@
             android:layout_height="55dp"
             android:backgroundTint="@color/transparent"
             android:scaleType="fitXY"
-            android:src="@drawable/plus"
+
             android:layout_gravity="center"
             />
     </LinearLayout>
