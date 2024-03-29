@@ -14,12 +14,22 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements Clickable {
+public class MainActivity extends AppCompatActivity implements PostExecuteActivity<Annonce>,Clickable {
 
     private List<Annonce> listTest;
+    private ListView list;
     private AlertDialog.Builder alertDialogBuilder;
 
     @Override
@@ -28,27 +38,41 @@ public class MainActivity extends AppCompatActivity implements Clickable {
         setContentView(R.layout.activity_main);
 
         TextView test = findViewById(R.id.titre);
-        ListView list = findViewById(R.id.liste_annonces);
+        list = findViewById(R.id.liste_annonces);
         alertDialogBuilder = new AlertDialog.Builder(this);  // ne pas mettre getApplicationContext() ici
 
         listTest = new ArrayList<>();
 
-        Utilisateur vendeur = new Utilisateur("Lallement", "Sébastien", "sebastien.lallement@etu.unice.fr", "0783770564");
-        Annonce testAnn1 = new Annonce("Test1", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
-        Annonce testAnn2 = new Annonce("Test2", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
-        Annonce testAnn3 = new Annonce("Test3", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
-        Annonce testAnn4 = new Annonce("Test4", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
+        //================+++WEBTRUCK==================//
 
-        listTest.add(testAnn1);
-        listTest.add(testAnn2);
-        listTest.add(testAnn3);
-        listTest.add(testAnn4);
+        try {
+            String response = null;
+            String reqUrl="https://pirrr3.github.io/r411api/annonce.json";
+            //objet URL
+            URL url = new URL(reqUrl);
+            //objet pour la connexion
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            //lecture du fichier
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            response = convertStreamToString(in);
 
-        AnnonceAdapter adapter = new AnnonceAdapter(listTest, this);
+            Log.i("RESPONSE", response);
+            // Add your code to read from InputStream and handle the response
 
-        //Initialisation de la liste avec les données
-        list.setAdapter(adapter);
+            // Don't forget to close the InputStream and the connection
+            in.close();
+            conn.disconnect();
+        } catch (MalformedURLException e) {
+            // URL is not in a valid format
+            e.printStackTrace();
+        } catch (IOException e) {
+            // Error in establishing connection or reading data
+            e.printStackTrace();
+        }
 
+
+        //================================================//
         //test.setText(testAnn.toString());
     }
 
@@ -61,8 +85,28 @@ public class MainActivity extends AppCompatActivity implements Clickable {
         startActivity(intent);
 
     }
+
     @Override
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    private String convertStreamToString(InputStream is) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append('\n');
+            is.close();
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public void onPostExecute(List<Annonce> itemList) {
+        listTest.addAll(itemList);
+
+        AnnonceAdapter adapter = new AnnonceAdapter(listTest, this);
+        list.setAdapter(adapter);
     }
 }
