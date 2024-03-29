@@ -59,9 +59,9 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
         startActivity(intent);
 
         //POUR TESTER LA VUE UTILISATEUR
-        //Intent intentUser = new Intent(MainActivity.this, UserActivity.class);
-        //intentUser.putExtra("utilisateur", vendeur);
-        //startActivity(intentUser);
+        Intent intentUser = new Intent(MainActivity.this, UserActivity.class);
+        intentUser.putExtra("utilisateur", vendeur);
+        startActivity(intentUser);
     }
 
     @Override
