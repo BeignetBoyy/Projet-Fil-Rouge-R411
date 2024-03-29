@@ -20,6 +20,7 @@ public class Annonce implements Parcelable {
     private double prix;
     private Etat etat;
     private String utilisateur;
+    private String image;
 
     public Annonce(){
         super();
@@ -109,6 +110,14 @@ public class Annonce implements Parcelable {
 
     public void setUtilisateur(String utilisateur) {
         this.utilisateur = utilisateur;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = "https://pirrr3.github.io/r411api/images/" + image;
     }
 
     @Override
