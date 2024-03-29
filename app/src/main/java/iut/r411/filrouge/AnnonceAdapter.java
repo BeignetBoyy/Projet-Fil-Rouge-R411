@@ -4,9 +4,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -47,9 +51,15 @@ public class AnnonceAdapter extends BaseAdapter {
 
         //(2) : Récupération des éléments
         TextView libelle = layoutItem.findViewById(R.id.libelle);
+        TextView description = layoutItem.findViewById(R.id.description);
+        TextView prix = layoutItem.findViewById(R.id.prix);
+        ImageView image = layoutItem.findViewById(R.id.picture);
 
         //(3) : Renseignement des valeurs
         libelle.setText(annonces.get(position).getLibelle());
+        description.setText(annonces.get(position).getDescription());
+        prix.setText(annonces.get(position).getPrix() + " €");
+        Picasso.get().load(annonces.get(position).getImage()).into(image);
 
 
         layoutItem.setOnClickListener( click -> callBackActivity.onClicItem(position));
