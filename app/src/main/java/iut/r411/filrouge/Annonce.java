@@ -19,7 +19,7 @@ public class Annonce implements Parcelable {
     private String description;
     private double prix;
     private Etat etat;
-    private Utilisateur utilisateur;
+    private String utilisateur;
 
     public Annonce(){
         super();
@@ -55,12 +55,12 @@ public class Annonce implements Parcelable {
         }
     };
 
-    public String getDate() {
+    public String getDate_creation() {
         return date_creation;
     }
 
-    public void setDate(String date) {
-        this.date_creation = date;
+    public void setDate_creation(String date_creation) {
+        this.date_creation = date_creation;
     }
 
     public String getLibelle() {
@@ -103,11 +103,11 @@ public class Annonce implements Parcelable {
         this.id = id;
     }
 
-    public Utilisateur getUtilisateur() {
+    public String getUtilisateur() {
         return utilisateur;
     }
 
-    public void setUtilisateur(Utilisateur utilisateur) {
+    public void setUtilisateur(String utilisateur) {
         this.utilisateur = utilisateur;
     }
 

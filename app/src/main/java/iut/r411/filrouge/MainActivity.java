@@ -27,16 +27,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements PostExecuteActivity<Bottle>,Clickable {
+public class MainActivity extends AppCompatActivity implements PostExecuteActivity<Annonce>,Clickable {
 
     private List<Annonce> listTest;
     private ListView list;
     private AlertDialog.Builder alertDialogBuilder;
-
-    //TODO REMOVE
-    private static final List<Bottle> MANGA_BOTTLES = new ArrayList<>(); //the complete list
-    private final List<Bottle> displayedBottles = new ArrayList<>(); //the displayed list
-    private BottleAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +44,9 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
 
         listTest = new ArrayList<>();
 
-        String url = "https://pirrr3.github.io/r411api/bottles.json";
+        String url = "https://pirrr3.github.io/r411api/annonce.json";
         //todo: try to change context from MainActivity.this in getApplicationContext()
-        new HttpAsyncGet<>(url, Bottle.class, this, new ProgressDialog(MainActivity.this) );
+        new HttpAsyncGet<>(url, Annonce.class, this, new ProgressDialog(MainActivity.this) );
     }
 
     @Override
@@ -81,22 +76,15 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
     }
 
     @Override
-    public void onPostExecute(List<Bottle> itemList) {
-        /*
+    public void onPostExecute(List<Annonce> itemList) {
+
         listTest.addAll(itemList);
 
         AnnonceAdapter adapter = new AnnonceAdapter(listTest, this);
         list.setAdapter(adapter);
-*/
+
         Log.d("LIST","itemList = " + itemList);
     }
 
-    @Override //TODO REMOVE
-    public void onRatingBarChange(int itemIndex, float value) {
-        Log.d("BLLABLA", MANGA_BOTTLES.get(itemIndex).getNom()+" old value = " + MANGA_BOTTLES.get(itemIndex).getPrix() +  " new value = " + value);
-        MANGA_BOTTLES.get(itemIndex).setPrix(value);
-        displayedBottles.get(itemIndex).setPrix(value);
-        adapter.notifyDataSetChanged();
-    }
 
 }
