@@ -24,7 +24,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
         android:text="Pc Gamer trop cool"
-        android:textSize="20sp"
+        android:textSize="30sp"
 
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/picture" />
@@ -36,43 +36,56 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
         android:text="400 €"
-        android:textSize="20sp"
+        android:textSize="25sp"
 
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/libelle" />
 
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:text="29/09/2024"
+        android:textSize="15sp"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/prix" />
+
+
     <ImageView
         android:id="@+id/profilPicture"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/ic_launcher_background"
-        android:padding="5dp"
-        android:src="@drawable/ic_launcher_foreground"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/drawable_user_avatar"
+        app:layout_constraintHeight="75dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/prix" />
+        app:layout_constraintTop_toBottomOf="@+id/date"
+        app:layout_constraintWidth="75dp" />
+
 
     <TextView
         android:id="@+id/profilName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="5dp"
         android:text="Thomas Portelette"
 
-
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/profilPicture"
         app:layout_constraintStart_toEndOf="@+id/profilPicture"
-        app:layout_constraintTop_toTopOf="@id/profilPicture"
-        app:layout_constraintBottom_toBottomOf="@id/profilPicture"/>
+        app:layout_constraintTop_toTopOf="@id/profilPicture" />
 
     <TextView
         android:id="@+id/descriptionTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-
 
         android:layout_marginTop="40dp"
         android:text="Description"
@@ -94,7 +107,32 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/descriptionTitle" />
 
-    
+
+    <TextView
+        android:id="@+id/etatTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+
+        android:layout_marginTop="40dp"
+        android:text="Etat : "
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/descriptionText" />
+
+
+    <TextView
+        android:id="@+id/etatText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Neuf"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/etatTitle"
+        app:layout_constraintStart_toEndOf="@+id/etatTitle"
+        app:layout_constraintTop_toTopOf="@id/etatTitle" />
+
+
 
 
 
