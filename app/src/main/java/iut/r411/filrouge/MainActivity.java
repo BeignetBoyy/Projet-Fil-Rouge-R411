@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements Clickable {
 
     private List<Annonce> listTest;
     private AlertDialog.Builder alertDialogBuilder;
+    private Utilisateur vendeur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,7 @@ public class MainActivity extends AppCompatActivity implements Clickable {
         alertDialogBuilder = new AlertDialog.Builder(this);  // ne pas mettre getApplicationContext() ici
 
         listTest = new ArrayList<>();
-
-        Utilisateur vendeur = new Utilisateur("Lallement", "Sébastien", "sebastien.lallement@etu.unice.fr", "0783770564");
+        vendeur = new Utilisateur("Lallement", "Sébastien", "sebastien.lallement@etu.unice.fr", "0783770564");
         Annonce testAnn1 = new Annonce("Test1", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
         Annonce testAnn2 = new Annonce("Test2", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
         Annonce testAnn3 = new Annonce("Test3", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
@@ -60,6 +60,10 @@ public class MainActivity extends AppCompatActivity implements Clickable {
         intent.putExtra("annonce", listTest.get(itemIndex));
         startActivity(intent);
 
+        //POUR TESTER LA VUE UTILISATEUR
+        //Intent intentUser = new Intent(MainActivity.this, UserActivity.class);
+        //intentUser.putExtra("utilisateur", vendeur);
+        //startActivity(intentUser);
     }
     @Override
     public Context getContext() {

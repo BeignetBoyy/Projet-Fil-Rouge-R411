@@ -14,23 +14,36 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
+/** @noinspection ALL*/
 public class UserActivity extends Activity implements Clickable{
-    Utilisateur utilisateur = (Utilisateur) getIntent().getSerializableExtra("utilisateur");
+    Utilisateur utilisateur;
+    RatingBar ratingBar;
     private ArrayList<Annonce> listTest;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        assert utilisateur != null;
+        listTest = new ArrayList<>();
+        Intent intent = getIntent();
+        utilisateur = (Utilisateur) intent.getSerializableExtra("utilisateur");
+
+        // Vérifier si l'objet Utilisateur n'est pas nul
+        if(utilisateur == null) {
+            Log.e("utilisateur","Erreur: L'utilisateur choisi n'existe pas");
+            finish();
+            return;
+        }
 
         TextView texteNom = findViewById(R.id.username);
         String pseudo = utilisateur.getPrenom()+" "+utilisateur.getNom();
         texteNom.setText(pseudo);
 
-        RatingBar ratingBar = findViewById(R.id.ratingBar);
+        ratingBar = findViewById(R.id.ratingBar);
         ratingBar.setIsIndicator(true);
         ratingBar.setRating(utilisateur.getNote());
 
@@ -60,19 +73,6 @@ public class UserActivity extends Activity implements Clickable{
 
         ListView list = findViewById(R.id.liste_annonces);
 
-        listTest = new ArrayList<>();
-
-        Utilisateur vendeur = new Utilisateur("Lallement", "Sébastien", "sebastien.lallement@etu.unice.fr", "0783770564");
-        Annonce testAnn1 = new Annonce("Test1", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
-        Annonce testAnn2 = new Annonce("Test2", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
-        Annonce testAnn3 = new Annonce("Test3", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
-        Annonce testAnn4 = new Annonce("Test4", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
-
-        listTest.add(testAnn1);
-        listTest.add(testAnn2);
-        listTest.add(testAnn3);
-        listTest.add(testAnn4);
-
         AnnonceAdapter adapter = new AnnonceAdapter(listTest, this);
 
         //Initialisation de la liste avec les données
@@ -84,18 +84,19 @@ public class UserActivity extends Activity implements Clickable{
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.activity_rating, null);
-        final RatingBar ratingBar = dialogView.findViewById(R.id.ratingBar);
-        ratingBar.setNumStars(5);
-        ratingBar.setStepSize(0.5F);
-        ratingBar.setRating(0);
+        final RatingBar ratingBarPopup = dialogView.findViewById(R.id.ratingBar);
+        ratingBarPopup.setNumStars(5);
+        ratingBarPopup.setStepSize(0.5F);
+        ratingBarPopup.setRating(0);
 
         builder.setView(dialogView)
                 .setTitle("Notez cet utilisateur")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        float note = ratingBar.getRating();
+                        float note = ratingBarPopup.getRating();
                         utilisateur.majNote(note);
+                        ratingBar.setRating(utilisateur.getNote());
                     }
                 })
                 .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
