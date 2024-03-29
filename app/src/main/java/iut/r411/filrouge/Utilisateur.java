@@ -2,10 +2,11 @@ package iut.r411.filrouge;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Utilisateur {
+public class Utilisateur implements Serializable {
     private String nom;
     private String prenom;
     private String mail;
@@ -28,7 +29,7 @@ public class Utilisateur {
         this.sommeNotes += note;
         this.nbNotes++;
         if(nbNotes!=0) { this.note = this.sommeNotes / this.nbNotes; }
-        Log.i("Utilisateur","La nouvelle note de l'utilisateur est : "+note);
+        Log.i("Utilisateur","La nouvelle note de l'utilisateur est : "+this.note);
     }
 
     //Fonctions de gestion des annonces
