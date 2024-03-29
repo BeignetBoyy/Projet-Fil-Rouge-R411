@@ -3,6 +3,7 @@ package iut.r411.filrouge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +15,22 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements Clickable {
+public class MainActivity extends AppCompatActivity implements PostExecuteActivity<Annonce>,Clickable {
 
     private List<Annonce> listTest;
+    private ListView list;
     private AlertDialog.Builder alertDialogBuilder;
     private Utilisateur vendeur;
 
@@ -29,27 +40,14 @@ public class MainActivity extends AppCompatActivity implements Clickable {
         setContentView(R.layout.activity_main);
 
         TextView test = findViewById(R.id.titre);
-        ListView list = findViewById(R.id.liste_annonces);
+        list = findViewById(R.id.liste_annonces);
         alertDialogBuilder = new AlertDialog.Builder(this);  // ne pas mettre getApplicationContext() ici
 
         listTest = new ArrayList<>();
-        vendeur = new Utilisateur("Lallement", "Sébastien", "sebastien.lallement@etu.unice.fr", "0783770564");
-        Annonce testAnn1 = new Annonce("Test1", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
-        Annonce testAnn2 = new Annonce("Test2", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
-        Annonce testAnn3 = new Annonce("Test3", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
-        Annonce testAnn4 = new Annonce("Test4", "Blablalba", 15.00, Etat.Bon_etat, vendeur);
 
-        listTest.add(testAnn1);
-        listTest.add(testAnn2);
-        listTest.add(testAnn3);
-        listTest.add(testAnn4);
-
-        AnnonceAdapter adapter = new AnnonceAdapter(listTest, this);
-
-        //Initialisation de la liste avec les données
-        list.setAdapter(adapter);
-
-        //test.setText(testAnn.toString());
+        String url = "https://pirrr3.github.io/r411api/annonce.json";
+        //todo: try to change context from MainActivity.this in getApplicationContext()
+        new HttpAsyncGet<>(url, Annonce.class, this, new ProgressDialog(MainActivity.this) );
     }
 
     @Override
@@ -65,8 +63,33 @@ public class MainActivity extends AppCompatActivity implements Clickable {
         //intentUser.putExtra("utilisateur", vendeur);
         //startActivity(intentUser);
     }
+
     @Override
     public Context getContext() {
         return getApplicationContext();
     }
+
+    private String convertStreamToString(InputStream is) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append('\n');
+            is.close();
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public void onPostExecute(List<Annonce> itemList) {
+
+        listTest.addAll(itemList);
+
+        AnnonceAdapter adapter = new AnnonceAdapter(listTest, this);
+        list.setAdapter(adapter);
+
+        Log.d("LIST","itemList = " + itemList);
+    }
+
+
 }
