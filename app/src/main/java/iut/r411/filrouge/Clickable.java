@@ -10,4 +10,6 @@ import android.content.Context;
     public interface Clickable {
         void onClicItem(int itemIndex);
         Context getContext();
+
+        void onRatingBarChange(int itemIndex, float value);//TODO REMOVE
 }

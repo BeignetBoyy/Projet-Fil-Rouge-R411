@@ -14,16 +14,20 @@ import java.util.UUID;
 public class Annonce implements Parcelable {
 
     private String id;
-    private String date;
-    private String titre;
+    private String date_creation;
+    private String libelle;
     private String description;
     private double prix;
     private Etat etat;
     private Utilisateur utilisateur;
 
-    public Annonce(String titre, String description, double prix, Etat etat, Utilisateur utilisateur){
+    public Annonce(){
+        super();
+    }
+
+    /*public Annonce(String titre, String description, double prix, Etat etat, Utilisateur utilisateur){
         this.id = UUID.randomUUID().toString();
-        this.titre = titre;
+        this.libelle = titre;
         this.description = description;
         this.prix = prix;
         this.etat = etat;
@@ -31,11 +35,11 @@ public class Annonce implements Parcelable {
 
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        this.date = df.format(c);
-    }
+        this.date_creation = df.format(c);
+    }*/
 
     protected Annonce(Parcel in) {
-        titre = in.readString();
+        libelle = in.readString();
 
     }
 
@@ -52,19 +56,19 @@ public class Annonce implements Parcelable {
     };
 
     public String getDate() {
-        return date;
+        return date_creation;
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.date_creation = date;
     }
 
-    public String getTitre() {
-        return titre;
+    public String getLibelle() {
+        return libelle;
     }
 
-    public void setTitre(String titre) {
-        this.titre = titre;
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
     }
 
     public String getDescription() {
@@ -111,12 +115,12 @@ public class Annonce implements Parcelable {
     public String toString() {
         return "Annonce{" +
                 "id='" + id +
-                "date='" + date + '\'' +
-                ", titre='" + titre + '\'' +
+                "date='" + date_creation + '\'' +
+                ", titre='" + libelle + '\'' +
                 ", description='" + description + '\'' +
                 ", prix=" + prix +
                 ", etat=" + etat +
-                //", vendeur=" + vendeur +
+                ", utilisateur=" + utilisateur +
                 '}';
     }
 
@@ -127,6 +131,6 @@ public class Annonce implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(titre);
+        dest.writeString(libelle);
     }
 }

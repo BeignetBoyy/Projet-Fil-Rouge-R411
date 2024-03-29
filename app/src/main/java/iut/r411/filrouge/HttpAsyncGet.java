@@ -78,6 +78,7 @@ public class HttpAsyncGet<T>{
                 // lecture du fichier
                 InputStream inputStream = new BufferedInputStream(connection.getInputStream());
                 response = convertStreamToString(inputStream);
+                Log.d("HTTP", "aaaa");
             } catch (MalformedURLException e) {
                 Log.e(TAG, "MalformedURLException: " + e.getMessage());
             } catch (ProtocolException e) {

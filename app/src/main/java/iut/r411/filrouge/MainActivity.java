@@ -3,6 +3,7 @@ package iut.r411.filrouge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,11 +27,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements PostExecuteActivity<Annonce>,Clickable {
+public class MainActivity extends AppCompatActivity implements PostExecuteActivity<Bottle>,Clickable {
 
     private List<Annonce> listTest;
     private ListView list;
     private AlertDialog.Builder alertDialogBuilder;
+
+    //TODO REMOVE
+    private static final List<Bottle> MANGA_BOTTLES = new ArrayList<>(); //the complete list
+    private final List<Bottle> displayedBottles = new ArrayList<>(); //the displayed list
+    private BottleAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,37 +49,9 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
 
         listTest = new ArrayList<>();
 
-        //================+++WEBTRUCK==================//
-
-        try {
-            String response = null;
-            String reqUrl="https://pirrr3.github.io/r411api/annonce.json";
-            //objet URL
-            URL url = new URL(reqUrl);
-            //objet pour la connexion
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            //lecture du fichier
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            response = convertStreamToString(in);
-
-            Log.i("RESPONSE", response);
-            // Add your code to read from InputStream and handle the response
-
-            // Don't forget to close the InputStream and the connection
-            in.close();
-            conn.disconnect();
-        } catch (MalformedURLException e) {
-            // URL is not in a valid format
-            e.printStackTrace();
-        } catch (IOException e) {
-            // Error in establishing connection or reading data
-            e.printStackTrace();
-        }
-
-
-        //================================================//
-        //test.setText(testAnn.toString());
+        String url = "https://pirrr3.github.io/r411api/bottles.json";
+        //todo: try to change context from MainActivity.this in getApplicationContext()
+        new HttpAsyncGet<>(url, Bottle.class, this, new ProgressDialog(MainActivity.this) );
     }
 
     @Override
@@ -103,10 +81,22 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
     }
 
     @Override
-    public void onPostExecute(List<Annonce> itemList) {
+    public void onPostExecute(List<Bottle> itemList) {
+        /*
         listTest.addAll(itemList);
 
         AnnonceAdapter adapter = new AnnonceAdapter(listTest, this);
         list.setAdapter(adapter);
+*/
+        Log.d("LIST","itemList = " + itemList);
     }
+
+    @Override //TODO REMOVE
+    public void onRatingBarChange(int itemIndex, float value) {
+        Log.d("BLLABLA", MANGA_BOTTLES.get(itemIndex).getNom()+" old value = " + MANGA_BOTTLES.get(itemIndex).getPrix() +  " new value = " + value);
+        MANGA_BOTTLES.get(itemIndex).setPrix(value);
+        displayedBottles.get(itemIndex).setPrix(value);
+        adapter.notifyDataSetChanged();
+    }
+
 }
