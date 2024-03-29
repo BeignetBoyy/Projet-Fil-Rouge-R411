@@ -1,17 +1,13 @@
 package iut.r411.filrouge;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class AnnonceAdapter extends BaseAdapter {
@@ -53,7 +49,7 @@ public class AnnonceAdapter extends BaseAdapter {
         TextView libelle = layoutItem.findViewById(R.id.libelle);
 
         //(3) : Renseignement des valeurs
-        libelle.setText(annonces.get(position).getTitre());
+        libelle.setText(annonces.get(position).getLibelle());
 
 
         layoutItem.setOnClickListener( click -> callBackActivity.onClicItem(position));
