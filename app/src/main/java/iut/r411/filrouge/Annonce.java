@@ -2,6 +2,7 @@ package iut.r411.filrouge;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -9,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Annonce implements Parcelable {
@@ -26,7 +28,7 @@ public class Annonce implements Parcelable {
         super();
     }
 
-    /*public Annonce(String titre, String description, double prix, Etat etat, Utilisateur utilisateur){
+    public Annonce(String titre, String description, double prix, Etat etat, String utilisateur){
         this.id = UUID.randomUUID().toString();
         this.libelle = titre;
         this.description = description;
@@ -37,10 +39,18 @@ public class Annonce implements Parcelable {
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         this.date_creation = df.format(c);
-    }*/
+    }
 
     protected Annonce(Parcel in) {
+
+        //Log.d("BLA", String.valueOf(Objects.requireNonNull(in)));
         libelle = in.readString();
+        description = in.readString();
+        image = in.readString();
+        prix = in.readDouble();
+        date_creation = in.readString();
+        etat = Etat.valueOf(in.readString());
+        utilisateur = in.readString();
 
     }
 
@@ -120,11 +130,12 @@ public class Annonce implements Parcelable {
         this.image = "https://pirrr3.github.io/r411api/images/" + image;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Annonce{" +
                 "id='" + id +
-                "date='" + date_creation + '\'' +
+                ", date='" + date_creation + '\'' +
                 ", titre='" + libelle + '\'' +
                 ", description='" + description + '\'' +
                 ", prix=" + prix +
@@ -141,5 +152,14 @@ public class Annonce implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(libelle);
+        dest.writeString(description);
+        dest.writeString(image);
+        dest.writeDouble(prix);
+        dest.writeString(date_creation);
+        dest.writeString(etat.toString());
+        dest.writeString(utilisateur);
+
+        //Log.i("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", dest.readString());
+
     }
 }
