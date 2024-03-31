@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Le Bon Angle</string>
     <string name="titre">Le Bon Angle</string>
+    <string name="login_title">Se Connecter</string>
 </resources>

@@ -30,7 +30,7 @@ public class UserActivity extends Activity implements Clickable{
 
         listTest = new ArrayList<>();
         Intent intent = getIntent();
-        utilisateur = (Utilisateur) intent.getSerializableExtra("utilisateur");
+        utilisateur = getIntent().getExtras().getParcelable("utilisateur");
 
         // Vérifier si l'objet Utilisateur n'est pas nul
         if(utilisateur == null) {

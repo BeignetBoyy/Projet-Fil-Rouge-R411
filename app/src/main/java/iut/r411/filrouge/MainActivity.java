@@ -8,6 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,12 +25,16 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
 
     private List<Annonce> listAnnonces;
     private ListView list;
-    private Utilisateur vendeur;
+    private Utilisateur utilisateur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ImageButton profil = findViewById(R.id.profile_button);
+
+        Intent intent = getIntent();
+        utilisateur = getIntent().getExtras().getParcelable("utilisateur");
 
         TextView titre = findViewById(R.id.titre);
         list = findViewById(R.id.liste_annonces);
@@ -35,8 +42,18 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
         listAnnonces = new ArrayList<>();
 
         String url = "https://pirrr3.github.io/r411api/annonce.json";
-        //todo: try to change context from MainActivity.this in getApplicationContext()
         new HttpAsyncGet<>(url, Annonce.class, this, new ProgressDialog(MainActivity.this) );
+
+
+        profil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("CLICK", utilisateur.toString());
+                Intent intentUser = new Intent(MainActivity.this, UserActivity.class);
+                intentUser.putExtra("utilisateur", utilisateur);
+                startActivity(intentUser);
+            }
+        });
     }
 
     @Override
@@ -46,27 +63,11 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
         Intent intent = new Intent(MainActivity.this, AnnonceActivity.class);
         intent.putExtra("annonce", listAnnonces.get(itemIndex));
         startActivity(intent);
-
-        /*//POUR TESTER LA VUE UTILISATEUR
-        Intent intentUser = new Intent(MainActivity.this, UserActivity.class);
-        intentUser.putExtra("utilisateur", vendeur);
-        startActivity(intentUser);*/
     }
 
     @Override
     public Context getContext() {
         return getApplicationContext();
-    }
-
-    private String convertStreamToString(InputStream is) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            sb.append(line).append('\n');
-            is.close();
-        }
-        return sb.toString();
     }
 
     @Override
