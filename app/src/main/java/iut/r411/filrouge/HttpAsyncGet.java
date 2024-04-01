@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
  * @author Frédéric RALLO - March 2023
  */
 public class HttpAsyncGet<T>{
-    private static final String TAG = "fred " + HttpAsyncGet.class.getSimpleName();    //Pour affichage en cas d'erreur
+    private static final String TAG = "R411 " + HttpAsyncGet.class.getSimpleName();    //Pour affichage en cas d'erreur
     private final Class<T> clazz;
     private List<T> itemList;
     private final HttpHandler webService;
@@ -78,7 +78,7 @@ public class HttpAsyncGet<T>{
                 // lecture du fichier
                 InputStream inputStream = new BufferedInputStream(connection.getInputStream());
                 response = convertStreamToString(inputStream);
-                Log.d("HTTP", "aaaa");
+                Log.d("HTTP", "connexion OK");
             } catch (MalformedURLException e) {
                 Log.e(TAG, "MalformedURLException: " + e.getMessage());
             } catch (ProtocolException e) {
@@ -99,7 +99,7 @@ public class HttpAsyncGet<T>{
             try {
                 while ((line = reader.readLine()) != null) {
                     stringBuilder.append(line).append('\n');
-                    Log.e(TAG,line);
+                    Log.i(TAG,line);
                 }
             }
             catch (IOException e) {  e.printStackTrace();   }

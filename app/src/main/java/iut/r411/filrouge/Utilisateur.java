@@ -23,6 +23,7 @@ public class Utilisateur implements Parcelable {
 
     public Utilisateur(){
         super();
+        Log.d("ANNONCES", annonces.toString());
     }
 
     //Constructeur de la classe

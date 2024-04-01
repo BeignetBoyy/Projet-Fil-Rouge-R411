@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ImageButton profil = findViewById(R.id.profile_button);
+        ImageButton create_annonce = findViewById(R.id.create_button);
 
         Intent intent = getIntent();
         utilisateur = getIntent().getExtras().getParcelable("utilisateur");
@@ -50,6 +51,16 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
             public void onClick(View v) {
                 Log.d("CLICK", utilisateur.toString());
                 Intent intentUser = new Intent(MainActivity.this, UserActivity.class);
+                intentUser.putExtra("utilisateur", utilisateur);
+                startActivity(intentUser);
+            }
+        });
+
+        create_annonce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("CLICK", utilisateur.toString());
+                Intent intentUser = new Intent(MainActivity.this, CreateAnnonce.class);
                 intentUser.putExtra("utilisateur", utilisateur);
                 startActivity(intentUser);
             }

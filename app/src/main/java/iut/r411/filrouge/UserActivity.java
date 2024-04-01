@@ -14,21 +14,19 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 
 /** @noinspection ALL*/
 public class UserActivity extends Activity implements Clickable{
     Utilisateur utilisateur;
     RatingBar ratingBar;
-    private ArrayList<Annonce> listTest;
+    private ArrayList<Annonce> listAnnonces;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        listTest = new ArrayList<>();
+        listAnnonces = new ArrayList<>();
         Intent intent = getIntent();
         utilisateur = getIntent().getExtras().getParcelable("utilisateur");
 
@@ -73,7 +71,7 @@ public class UserActivity extends Activity implements Clickable{
 
         ListView list = findViewById(R.id.liste_annonces);
 
-        AnnonceAdapter adapter = new AnnonceAdapter(listTest, this);
+        AnnonceAdapter adapter = new AnnonceAdapter(listAnnonces, this);
 
         //Initialisation de la liste avec les données
         list.setAdapter(adapter);
