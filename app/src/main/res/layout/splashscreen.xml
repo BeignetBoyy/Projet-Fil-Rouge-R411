@@ -39,7 +39,8 @@
         app:layout_constraintStart_toStartOf="parent"
         android:text="@string/titre"
         android:layout_marginTop="25dp"
-        android:textSize="30sp"/>
+        android:textSize="30sp"
+        android:fontFamily="@font/raleway_extrabold"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout >

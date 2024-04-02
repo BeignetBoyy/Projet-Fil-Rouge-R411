@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -44,7 +45,8 @@ public class AnnonceActivity extends AppCompatActivity implements PostExecuteAct
         profilName.setText(annonce.getUtilisateur());
         description.setText(annonce.getDescription());
         date_creation.setText(annonce.getDate_creation());
-        etat.setText(annonce.getEtat().toString());
+
+        etat.setText(annonce.getEtat().toString().replaceAll("_", " "));
         prix.setText(annonce.getPrix() + " €");
         Picasso.get().load(annonce.getImage()).into(image);
 
@@ -65,6 +67,16 @@ public class AnnonceActivity extends AppCompatActivity implements PostExecuteAct
                 Intent intentUser = new Intent(AnnonceActivity.this, UserActivity.class);
                 intentUser.putExtra("utilisateur", utilisateur);
                 startActivity(intentUser);
+            }
+        });
+
+        findViewById(R.id.boutton_acheter).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Achat Reussi", Toast.LENGTH_LONG);
+                toast.show();
+
+                finish();
             }
         });
 

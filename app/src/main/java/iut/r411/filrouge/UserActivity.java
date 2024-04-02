@@ -2,6 +2,7 @@ package iut.r411.filrouge;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,10 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** @noinspection ALL*/
-public class UserActivity extends Activity implements Clickable{
+public class UserActivity extends Activity implements PostExecuteActivity<Annonce>,Clickable{
     Utilisateur utilisateur;
     RatingBar ratingBar;
     private List<Annonce> listAnnonces;
+    private ListView listview;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +40,12 @@ public class UserActivity extends Activity implements Clickable{
             return;
         }
 
+        String url = "https://pirrr3.github.io/r411api/annonce.json";
+        new HttpAsyncGet<>(url, Annonce.class, this, new ProgressDialog(UserActivity.this) );
+
         Log.i("USER", utilisateur.toString());
 
-        listAnnonces = utilisateur.getAnnonces();
+        listAnnonces = new ArrayList<>();
         Log.i("ANNONCES", listAnnonces.toString());
 
         TextView texteNom = findViewById(R.id.username);
@@ -76,12 +81,7 @@ public class UserActivity extends Activity implements Clickable{
             }
         });
 
-        ListView list = findViewById(R.id.liste_annonces);
-
-        AnnonceAdapter adapter = new AnnonceAdapter(listAnnonces, this);
-
-        //Initialisation de la liste avec les données
-        list.setAdapter(adapter);
+        listview = findViewById(R.id.liste_annonces);
     }
 
     private void afficherPopupNotation() {
@@ -117,11 +117,31 @@ public class UserActivity extends Activity implements Clickable{
 
     @Override
     public void onClicItem(int itemIndex) {
-        Log.i("UserActivity","Has clicked");
+        Log.i("Click", "Click !");
+        Log.d("Click", "clicked on = " + listAnnonces.get(itemIndex));
+        Intent intent = new Intent(UserActivity.this, AnnonceActivity.class);
+        intent.putExtra("annonce", listAnnonces.get(itemIndex));
+        startActivity(intent);
     }
 
     @Override
     public Context getContext() {
         return getApplicationContext();
+    }
+
+    @Override
+    public void onPostExecute(List<Annonce> itemList) {
+        Log.d("LIST","itemList = " + itemList);
+
+        //Ajout des annonces de l'utilisateur connecté
+        for(Annonce a : itemList){
+            if(a.getUtilisateur().equals(utilisateur.getMail())){
+                listAnnonces.add(a);
+                Log.d("ADD ANNONCE", "Ajout de l'annonce " + a.getLibelle() + " à l'utilisateur " + utilisateur);
+            }
+        }
+
+        AnnonceAdapter adapter = new AnnonceAdapter(listAnnonces, this);
+        listview.setAdapter(adapter);
     }
 }

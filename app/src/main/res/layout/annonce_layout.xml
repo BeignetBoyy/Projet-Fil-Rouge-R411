@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/off_white">
+    android:background="@drawable/custom_shape">
 
     <ImageView
         android:id="@+id/picture"
@@ -24,7 +24,8 @@
         app:layout_constraintLeft_toRightOf="@id/picture"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:fontFamily="@font/raleway_extrabold"/>
 
     <TextView
         android:id="@+id/description"
@@ -33,10 +34,11 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/libelle"
         app:layout_constraintStart_toEndOf="@id/picture"
-        android:maxLength="35"
+        android:maxLength="25"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:fontFamily="@font/raleway_extrabold"/>
 
     <TextView
         android:id="@+id/prix"
@@ -47,6 +49,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="5dp"
         android:layout_marginTop="15dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:fontFamily="@font/raleway_extrabold"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
