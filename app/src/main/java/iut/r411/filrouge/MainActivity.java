@@ -9,59 +9,71 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements PostExecuteActivity<Annonce>,Clickable {
 
-    private List<Annonce> listTest;
+    private List<Annonce> listAnnonces;
     private ListView list;
-    private AlertDialog.Builder alertDialogBuilder;
-    private Utilisateur vendeur;
+    private Utilisateur utilisateur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ImageButton profil = findViewById(R.id.profile_button);
+        ImageButton create_annonce = findViewById(R.id.create_button);
 
-        TextView test = findViewById(R.id.titre);
+        Intent intent = getIntent();
+        utilisateur = getIntent().getExtras().getParcelable("utilisateur");
+
+        TextView titre = findViewById(R.id.titre);
         list = findViewById(R.id.liste_annonces);
-        alertDialogBuilder = new AlertDialog.Builder(this);  // ne pas mettre getApplicationContext() ici
 
-        listTest = new ArrayList<>();
+        listAnnonces = new ArrayList<>();
 
         String url = "https://pirrr3.github.io/r411api/annonce.json";
-        //todo: try to change context from MainActivity.this in getApplicationContext()
         new HttpAsyncGet<>(url, Annonce.class, this, new ProgressDialog(MainActivity.this) );
+
+
+        profil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("CLICK", utilisateur.toString());
+                Intent intentUser = new Intent(MainActivity.this, UserActivity.class);
+                intentUser.putExtra("utilisateur", utilisateur);
+                startActivity(intentUser);
+            }
+        });
+
+        create_annonce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("CLICK", utilisateur.toString());
+                Intent intentUser = new Intent(MainActivity.this, CreateAnnonce.class);
+                intentUser.putExtra("utilisateur", utilisateur);
+                startActivity(intentUser);
+            }
+        });
     }
 
     @Override
     public void onClicItem(int itemIndex) {
         Log.i("Click", "Click !");
-        Log.d("Click", "clicked on = " + listTest.get(itemIndex));
+        Log.d("Click", "clicked on = " + listAnnonces.get(itemIndex));
         Intent intent = new Intent(MainActivity.this, AnnonceActivity.class);
-        intent.putExtra("annonce", listTest.get(itemIndex));
+        intent.putExtra("annonce", listAnnonces.get(itemIndex));
         startActivity(intent);
-
-        //POUR TESTER LA VUE UTILISATEUR
-        Intent intentUser = new Intent(MainActivity.this, UserActivity.class);
-        intentUser.putExtra("utilisateur", vendeur);
-        startActivity(intentUser);
     }
 
     @Override
@@ -69,23 +81,12 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
         return getApplicationContext();
     }
 
-    private String convertStreamToString(InputStream is) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            sb.append(line).append('\n');
-            is.close();
-        }
-        return sb.toString();
-    }
-
     @Override
     public void onPostExecute(List<Annonce> itemList) {
 
-        listTest.addAll(itemList);
+        listAnnonces.addAll(itemList);
 
-        AnnonceAdapter adapter = new AnnonceAdapter(listTest, this);
+        AnnonceAdapter adapter = new AnnonceAdapter(listAnnonces, this);
         list.setAdapter(adapter);
 
         Log.d("LIST","itemList = " + itemList);
