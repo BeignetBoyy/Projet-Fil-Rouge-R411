@@ -6,7 +6,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class Utilisateur implements Parcelable {
     private float note = 0;
     private float sommeNotes = 0;
     private int nbNotes = 0;
-    private List<Annonce> annonces = new ArrayList<>();
+    private ArrayList<Annonce> annonces = new ArrayList<>();
 
     public Utilisateur(){
         super();
@@ -36,8 +35,6 @@ public class Utilisateur implements Parcelable {
     }
 
     protected Utilisateur(Parcel in) {
-
-        //Log.d("BLA", String.valueOf(Objects.requireNonNull(in)));
         mail = in.readString();
         password = in.readString();
         nom = in.readString();
@@ -46,9 +43,9 @@ public class Utilisateur implements Parcelable {
         note = in.readFloat();
         sommeNotes = in.readFloat();
         nbNotes = in.readInt();
-        //annonces = in.readArrayList(null);
-
+        annonces = in.createTypedArrayList(Annonce.CREATOR);
     }
+
 
     public static final Creator<Utilisateur> CREATOR = new Creator<Utilisateur>() {
         @Override
@@ -72,15 +69,8 @@ public class Utilisateur implements Parcelable {
 
     //Fonctions de gestion des annonces
     public void ajoutAnnonce(Annonce annonce){
-        if(this.annonces.contains(annonce)){ Log.e("Utilisateur","L'utilisateur possède déjà cette annonce."); }
-        else{ this.annonces.add(annonce); }
+        annonces.add(annonce);
     }
-
-    public void retirerAnnonce(Annonce annonce){
-        if(this.annonces.contains(annonce)){ this.annonces.remove(annonce); }
-        else{ Log.e("Utilisateur","L'utilisateur ne possède pas cette annonce."); }
-    }
-
     //Getters et Setters
     public String getNom() { return nom; }
     public void setNom(String nom) { this.nom = nom; }
@@ -132,6 +122,6 @@ public class Utilisateur implements Parcelable {
         dest.writeFloat(note);
         dest.writeFloat(sommeNotes);
         dest.writeInt(nbNotes);
-        //dest.writeList(annonces);
+        dest.writeTypedList(annonces);
     }
 }
