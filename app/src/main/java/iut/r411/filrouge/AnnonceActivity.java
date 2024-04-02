@@ -2,6 +2,8 @@ package iut.r411.filrouge;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +32,15 @@ public class AnnonceActivity extends AppCompatActivity {
         description.setText(annonce.getDescription());
         prix.setText(annonce.getPrix() + " €");
         Picasso.get().load(annonce.getImage()).into(image);
+
+
+        Button backButton = findViewById(R.id.boutton_retour); // Supposons que votre bouton ait l'id backButton
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // Appel de la méthode finish pour fermer cette activité et revenir à la vue précédente
+            }
+        });
 
     }
 }
