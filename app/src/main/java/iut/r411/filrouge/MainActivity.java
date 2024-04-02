@@ -6,8 +6,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -24,6 +27,9 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
     private int seekValue = 1000;
     private TextView seek_text;
 
+    private List<Annonce> filteredList; // New list to hold filtered items
+    private EditText searchBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +42,11 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
 
         TextView titre = findViewById(R.id.titre);
         listview = findViewById(R.id.liste_annonces);
+        searchBar = findViewById(R.id.searchBar);
 
         listAnnonces = new ArrayList<>();
+        filteredList = new ArrayList<>();
+
 
         String url = "https://pirrr3.github.io/r411api/annonce.json";
         new HttpAsyncGet<>(url, Annonce.class, this, new ProgressDialog(MainActivity.this) );
@@ -84,6 +93,36 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
         });
 
         maSeekBar.setProgress(seekValue);
+
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+
+    }
+
+    private void filter(String query) {
+        filteredList.clear();
+        for (Annonce annonce : listAnnonces) {
+            if (annonce.getLibelle().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(annonce);
+            }
+        }
+        updateListView(filteredList);
+    }
+
+    private void updateListView(List<Annonce> filteredList) {
+        AnnonceAdapter adapter = new AnnonceAdapter(filteredList, this);
+        listview.setAdapter(adapter);
     }
 
     @Override
