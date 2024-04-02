@@ -1,5 +1,7 @@
 package iut.r411.filrouge;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.picasso.Picasso;
 
-public class AnnonceActivity extends AppCompatActivity {
+import java.util.List;
+
+public class AnnonceActivity extends AppCompatActivity implements PostExecuteActivity<Utilisateur>{
+
+    private Utilisateur utilisateur;
+    private TextView profilName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,19 +26,25 @@ public class AnnonceActivity extends AppCompatActivity {
 
         Annonce annonce = getIntent().getExtras().getParcelable("annonce");
 
+        String url = "https://pirrr3.github.io/r411api/utilisateur.json";
+        new HttpAsyncGet<>(url, Utilisateur.class, this, new ProgressDialog(AnnonceActivity.this) );
 
 
         Log.i("CONTENU ANNONCE", String.valueOf(annonce));
 
         TextView libelle = findViewById(R.id.libelle);
-        TextView profilName = findViewById(R.id.profilName);
+        profilName = findViewById(R.id.profilName);
         TextView description = findViewById(R.id.description);
         TextView prix = findViewById(R.id.prix);
+        TextView date_creation = findViewById(R.id.date_creation);
+        TextView etat = findViewById(R.id.etatText);
         ImageView image = findViewById(R.id.picture);
 
         libelle.setText(annonce.getLibelle());
         profilName.setText(annonce.getUtilisateur());
         description.setText(annonce.getDescription());
+        date_creation.setText(annonce.getDate_creation());
+        etat.setText(annonce.getEtat().toString());
         prix.setText(annonce.getPrix() + " €");
         Picasso.get().load(annonce.getImage()).into(image);
 
@@ -44,5 +57,25 @@ public class AnnonceActivity extends AppCompatActivity {
             }
         });
 
+        ImageView profil_picutre = findViewById(R.id.profilPicture);
+        profil_picutre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("CLICK", utilisateur.toString());
+                Intent intentUser = new Intent(AnnonceActivity.this, UserActivity.class);
+                intentUser.putExtra("utilisateur", utilisateur);
+                startActivity(intentUser);
+            }
+        });
+
+    }
+
+    @Override
+    public void onPostExecute(List<Utilisateur> itemList) {
+        for(Utilisateur u : itemList){
+            if(u.getMail().equals(profilName.getText().toString())){
+                utilisateur = u;
+            }
+        }
     }
 }
