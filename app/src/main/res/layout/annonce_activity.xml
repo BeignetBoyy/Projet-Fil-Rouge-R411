@@ -132,11 +132,28 @@
         app:layout_constraintStart_toEndOf="@+id/etatTitle"
         app:layout_constraintTop_toTopOf="@id/etatTitle" />
 
+    <Button
+        android:id="@+id/retour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        android:backgroundTint="@color/orange"/>
 
-
-
-
-
+    <Button
+        android:id="@+id/acheter"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:ignore="MissingConstraints"
+        android:backgroundTint="@color/orange"
+        app:layout_constraintTop_toTopOf="@+id/retour"
+        app:layout_constraintStart_toEndOf="@+id/retour"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
