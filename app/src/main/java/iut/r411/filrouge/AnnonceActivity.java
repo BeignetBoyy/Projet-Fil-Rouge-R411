@@ -22,11 +22,13 @@ public class AnnonceActivity extends AppCompatActivity {
         Log.i("CONTENU ANNONCE", String.valueOf(annonce));
 
         TextView libelle = findViewById(R.id.libelle);
+        TextView profilName = findViewById(R.id.profilName);
         TextView description = findViewById(R.id.description);
         TextView prix = findViewById(R.id.prix);
         ImageView image = findViewById(R.id.picture);
 
         libelle.setText(annonce.getLibelle());
+        profilName.setText(annonce.getUtilisateur());
         description.setText(annonce.getDescription());
         prix.setText(annonce.getPrix() + " €");
         Picasso.get().load(annonce.getImage()).into(image);

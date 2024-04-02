@@ -16,29 +16,56 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="15dp"/>
 
-    <EditText
-        android:id="@+id/search"
-        android:layout_width="300dp"
+    <LinearLayout
+        android:id="@+id/linear_top"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titre"
-        app:layout_constraintBottom_toTopOf="@id/liste_annonces"
+        android:layout_marginTop="15dp"
+        >
 
-        android:autofillHints="Rechercher" />
-    
+        <TextView
+            android:id="@+id/prix_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trier par prix"
+            android:layout_gravity="start"/>
+
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/liste_annonces"
+            android:progress="1000"
+            android:min="0"
+            android:max="1000"/>
+
+        <TextView
+            android:id="@+id/affiche_prix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"/>
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/liste_annonces"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search"
+        app:layout_constraintTop_toBottomOf="@id/linear_top"
+        app:layout_constraintBottom_toTopOf="@id/linear_bottom"
         android:divider="@android:color/transparent"
         android:dividerHeight="10.0sp"
+        android:layout_marginTop="15dp"
         />
 
     <LinearLayout
+        android:id="@+id/linear_bottom"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:orientation="horizontal"

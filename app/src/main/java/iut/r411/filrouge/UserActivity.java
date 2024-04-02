@@ -15,12 +15,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /** @noinspection ALL*/
 public class UserActivity extends Activity implements Clickable{
     Utilisateur utilisateur;
     RatingBar ratingBar;
-    private ArrayList<Annonce> listAnnonces;
+    private List<Annonce> listAnnonces;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,11 @@ public class UserActivity extends Activity implements Clickable{
             finish();
             return;
         }
+
+        Log.i("USER", utilisateur.toString());
+
+        listAnnonces = utilisateur.getAnnonces();
+        Log.i("ANNONCES", listAnnonces.toString());
 
         TextView texteNom = findViewById(R.id.username);
         String pseudo = utilisateur.getPrenom()+" "+utilisateur.getNom();
