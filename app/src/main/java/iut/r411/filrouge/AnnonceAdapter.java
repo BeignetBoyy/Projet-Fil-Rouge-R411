@@ -23,11 +23,16 @@ public class AnnonceAdapter extends BaseAdapter {
 
     /**
      *
-     * @param annonces
-     * @param callBackActivity
+     * Crée une nouvelle instance de la classe AnnonceAdapter avec la liste d'annonces fournie
+     * et l'activité de rappel spécifiée.
+     *
+     * @param annonces La liste d'annonces à afficher dans l'adaptateur.
+     * @param callBackActivity L'activité de rappel pour gérer les événements de clic.
      *
      * @see Clickable
+     *      Une interface décrivant les éléments cliquables et fournissant des méthodes de rappel.
      * @see Annonce
+     *      La classe représentant une annonce.
      *
      */
 

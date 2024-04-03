@@ -31,15 +31,18 @@ public class Annonce implements Parcelable {
 
     /**
      *
-     * @param titre
-     * @param description
-     * @param prix
-     * @param etat
-     * @param utilisateur
+     * @param titre Le titre de l'annonce.
+     * @param description La description de l'annonce.
+     * @param prix Le prix de l'annonce.
+     * @param etat L'état de l'annonce, voir la classe Etat.
+     * @param utilisateur L'utilisateur lié à l'annonce.
      *
      * @see Etat
+     *      L'énumération décrivant les différents états d'une annonce.
      * @see Date
+     *      La classe de base pour la représentation des dates et heures.
      * @see SimpleDateFormat
+     *      La classe permettant le formatage et l'analyse des dates dans un format spécifique.
      *
      *
      */
