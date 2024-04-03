@@ -27,11 +27,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.textView);
 
-        // Load flip animation from XML for the TextView
         ObjectAnimator textFlipAnimation = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.text_animation);
         textFlipAnimation.setTarget(textView);
 
-        // Load flip animation from XML for the ImageView
         ObjectAnimator flipAnimation = (ObjectAnimator) AnimatorInflater.loadAnimator(this, R.animator.icon_animation);
         flipAnimation.setTarget(imageViewIcon);
 

@@ -15,7 +15,8 @@
         android:layout_weight="1"
         android:text="Creer une annonce"
         android:gravity="center"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:fontFamily="@font/raleway_extrabold"/>
 
     <ImageView
         android:id="@+id/imageView"
@@ -30,6 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Prendre une photo"
-        android:layout_marginTop="30dp"/>
+        android:text="Ajouter une photo"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/orange"
+        android:fontFamily="@font/raleway_extrabold"/>
 </LinearLayout>

@@ -14,62 +14,79 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="15dp"/>
+        android:textSize="25dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/raleway_extrabold"/>
 
     <LinearLayout
         android:id="@+id/linear_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titre"
         android:layout_marginTop="15dp"
-        >
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titre">
 
         <TextView
             android:id="@+id/prix_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="start"
             android:text="Trier par prix"
-            android:layout_gravity="start"/>
+            android:fontFamily="@font/raleway_extrabold"/>
 
         <SeekBar
             android:id="@+id/seekbar"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/liste_annonces"
-            android:progress="1000"
+            android:max="1000"
             android:min="0"
-            android:max="1000"/>
+            android:progress="1000"
+            app:layout_constraintBottom_toTopOf="@id/liste_annonces" />
 
         <TextView
             android:id="@+id/affiche_prix"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"/>
+            android:layout_gravity="end"
+            android:fontFamily="@font/raleway_extrabold"/>
 
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/liste_annonces"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_top"
+        android:fontFamily="@font/raleway_extrabold"
+        android:hint="Rechercher"/>
 
     <ListView
         android:id="@+id/liste_annonces"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linear_top"
-        app:layout_constraintBottom_toTopOf="@id/linear_bottom"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="10.0sp"
-        android:layout_marginTop="15dp"
-        />
+        app:layout_constraintBottom_toTopOf="@id/linear_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_top" />
 
     <LinearLayout
         android:id="@+id/linear_bottom"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:orientation="horizontal"
-        android:background="@color/off_white"
+        android:background="@drawable/custom_outline"
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -94,6 +111,5 @@
             android:layout_gravity="center"
             />
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,6 +42,29 @@ public class CreateAnnonce extends AppCompatActivity implements IPictureActivity
             @Override
             public void onClick(View v) {
                 Log.d("CLICK", "CLICK ! 👍");
+
+                EditText titre = findViewById(R.id.titre_add);
+                EditText description = findViewById(R.id.description_add);
+                EditText prix = findViewById(R.id.prix_add);
+                Spinner etat = findViewById(R.id.spinner);
+
+                Log.d("tfrdrc", titre.getText().toString());
+
+                if(titre.getText().toString().isEmpty()
+                || description.getText().toString().isEmpty()
+                || prix.getText().toString().isEmpty()
+                || etat.getSelectedItem().toString().isEmpty()){
+                    Toast toast = Toast.makeText(getApplicationContext(), "Veuillez remplir les champs !", Toast.LENGTH_LONG);
+                    toast.show();
+                }else{
+                    Toast toast = Toast.makeText(getApplicationContext(), "Publication", Toast.LENGTH_LONG);
+                    toast.show();
+
+                    finish();
+                }
+
+
+
             }
         });
     }

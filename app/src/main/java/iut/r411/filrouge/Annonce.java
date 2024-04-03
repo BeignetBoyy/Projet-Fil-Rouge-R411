@@ -13,6 +13,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
 
+
 public class Annonce implements Parcelable {
 
     private String id;
