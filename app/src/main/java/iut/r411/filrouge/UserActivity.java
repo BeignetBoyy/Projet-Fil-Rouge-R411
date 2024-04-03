@@ -84,6 +84,14 @@ public class UserActivity extends Activity implements PostExecuteActivity<Annonc
         listview = findViewById(R.id.liste_annonces);
     }
 
+        /**
+        * Affiche une boîte de dialogue permettant à l'utilisateur de noter un autre utilisateur.
+        * La méthode crée une boîte de dialogue avec un RatingBar où l'utilisateur peut attribuer une note
+        * à un utilisateur spécifié. La note attribuée est ensuite mise à jour pour cet utilisateur.
+        *
+        * @param Utilisateur : L'utilisateur à noter. Ne doit pas être null.
+        * @exception AssertionError si l'utilisateur est null.
+        */
         private void afficherPopupNotation() {
         assert utilisateur != null;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
