@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity implements PostExecuteActiv
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
 
+        //Recupération des données d'utilisateur.json
         String url = "https://pirrr3.github.io/r411api/utilisateur.json";
         new HttpAsyncGet<>(url, Utilisateur.class, this, new ProgressDialog(LoginActivity.this) );
 
@@ -36,6 +38,8 @@ public class LoginActivity extends AppCompatActivity implements PostExecuteActiv
             @Override
             public void onClick(View v) {
                 for(Utilisateur u : listUser){
+                    //Si un utilisateur de la list correspond au logins données
+                    //on envoi les données à MainActivity avec un intent et on lance l'activité
                     if(u.getMail().equals(email.getText().toString()) && u.getPassword().equals(password.getText().toString())){
 
                         Intent intentUser = new Intent(LoginActivity.this, MainActivity.class);
@@ -49,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements PostExecuteActiv
 
     @Override
     public void onPostExecute(List<Utilisateur> itemList) {
+        //On ajoute tous les utilisateurs du json dans une list
         listUser.addAll(itemList);
     }
 }

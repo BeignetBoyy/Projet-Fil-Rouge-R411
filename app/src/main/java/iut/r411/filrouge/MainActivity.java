@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
         filteredList = new ArrayList<>();
 
 
+        //Recupération des données d'annonce.json
         String url = "https://pirrr3.github.io/r411api/annonce.json";
         new HttpAsyncGet<>(url, Annonce.class, this, new ProgressDialog(MainActivity.this) );
 
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
                 for(Annonce annonce : listAnnonces) {
                     if(annonce.getPrix() <= progress) filteredList.add(annonce);
                 }
-                addItemsListView();
+                filterSeekbar();
             }
         });
 
@@ -116,6 +117,15 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
 
     }
 
+    /**
+    *
+    * Recupere les annonces dont le titre contient la chaine de caractere donnée en parametre
+    *
+    * @param query le texte ecrit dans la barre de recherche
+    * @see Annonce
+    *
+     */
+
     private void filter(String query) {
         filteredList.clear();
         for (Annonce annonce : listAnnonces) {
@@ -125,6 +135,15 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
         }
         updateListView(filteredList);
     }
+
+    /**
+    * Met à jour les items dans l'adapter de la listView
+     *
+    * @param filteredList la liste contenant les items après qu'il ai été filtré
+     * @see Annonce
+     * @see AnnonceAdapter
+    *
+     */
 
     private void updateListView(List<Annonce> filteredList) {
         AnnonceAdapter adapter = new AnnonceAdapter(filteredList, this);
@@ -170,7 +189,11 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
         }
     }
 
-    public void addItemsListView(){
+    /**
+     * Filtre les valeurs de la listview en fonction de la valeur de la seekbar
+     * @see Annonce
+     */
+    public void filterSeekbar(){
         filteredList.clear();
 
         if(seekValue >= 1000){
@@ -187,6 +210,13 @@ public class MainActivity extends AppCompatActivity implements PostExecuteActivi
         updateListView(filteredList);
     }
 
+    /**
+     * recherche l'index d'un objet dans le liste d'origine par rapport à son index dans la liste filtré
+     *
+     * @param index l'index de l'objet dans la liste filtré
+     * @return l'index de l'objet si il est dans la liste d'origine, sinon -1
+     * @see Annonce
+     */
     private int findIndexInList(int index) {
         Annonce characterToFind = filteredList.get(index);
         for (int i = 0; i < listAnnonces.size(); i++) {

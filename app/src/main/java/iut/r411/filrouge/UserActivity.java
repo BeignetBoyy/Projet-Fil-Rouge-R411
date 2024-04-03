@@ -40,6 +40,7 @@ public class UserActivity extends Activity implements PostExecuteActivity<Annonc
             return;
         }
 
+        //recupere les données d'annonce.json
         String url = "https://pirrr3.github.io/r411api/annonce.json";
         new HttpAsyncGet<>(url, Annonce.class, this, new ProgressDialog(UserActivity.this) );
 
