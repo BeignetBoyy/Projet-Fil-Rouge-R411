@@ -29,6 +29,21 @@ public class Annonce implements Parcelable {
         super();
     }
 
+    /**
+     *
+     * @param titre
+     * @param description
+     * @param prix
+     * @param etat
+     * @param utilisateur
+     *
+     * @see Etat
+     * @see Date
+     * @see SimpleDateFormat
+     *
+     *
+     */
+
     public Annonce(String titre, String description, double prix, Etat etat, String utilisateur){
         this.id = UUID.randomUUID().toString();
         this.libelle = titre;
@@ -41,6 +56,7 @@ public class Annonce implements Parcelable {
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         this.date_creation = df.format(c);
     }
+
 
     protected Annonce(Parcel in) {
 
@@ -150,6 +166,7 @@ public class Annonce implements Parcelable {
         return 0;
     }
 
+
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(libelle);
@@ -160,7 +177,6 @@ public class Annonce implements Parcelable {
         dest.writeString(etat.toString());
         dest.writeString(utilisateur);
 
-        //Log.i("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", dest.readString());
 
     }
 }

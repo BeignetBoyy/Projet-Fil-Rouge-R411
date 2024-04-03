@@ -21,6 +21,16 @@ public class AnnonceAdapter extends BaseAdapter {
     private Clickable callBackActivity;
 
 
+    /**
+     *
+     * @param annonces
+     * @param callBackActivity
+     *
+     * @see Clickable
+     * @see Annonce
+     *
+     */
+
     public AnnonceAdapter(List<Annonce> annonces, Clickable callBackActivity) {
         this.annonces = annonces;
         this.callBackActivity = callBackActivity;

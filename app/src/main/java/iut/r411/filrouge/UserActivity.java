@@ -84,7 +84,7 @@ public class UserActivity extends Activity implements PostExecuteActivity<Annonc
         listview = findViewById(R.id.liste_annonces);
     }
 
-    private void afficherPopupNotation() {
+        private void afficherPopupNotation() {
         assert utilisateur != null;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();

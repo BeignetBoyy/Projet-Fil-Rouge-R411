@@ -16,11 +16,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-/**
- * construit un Objet T depuis un fichier json dont l'adress URL est passé en paramètre
- * Tache asynchrone
- * @author Frédéric RALLO - March 2023
- */
+
 public class HttpAsyncGet<T>{
     private static final String TAG = "R411 " + HttpAsyncGet.class.getSimpleName();    //Pour affichage en cas d'erreur
     private final Class<T> clazz;
@@ -28,6 +24,18 @@ public class HttpAsyncGet<T>{
     private final HttpHandler webService;
 
 
+    /**
+     *
+     * @param url
+     * @param clazz
+     * @param activity
+     * @param progressDialog
+     *
+     * @see HttpHandler
+     * @see Runnable
+     * @see
+     *
+     */
     public HttpAsyncGet(String url, Class<T> clazz, PostExecuteActivity activity, ProgressDialog progressDialog) {
         super();
         webService = new HttpHandler();
@@ -44,14 +52,20 @@ public class HttpAsyncGet<T>{
     }
 
 
+    /**
+     *
+     * @param urlAddress
+     *
+     * @see ObjectMapper
+     * @see JsonProcessingException
+     *
+     */
+
     public void doInBackGround(String urlAddress){
         // get the jsonStr to parse
         String jsonStr = webService.makeServiceCall(urlAddress);
         ObjectMapper mapper = new ObjectMapper();
         try {
-            //todo:  itemList = mapper.readValue(jsonStr, new TypeReference<List<T>>(){});   was not possible
-            //       the previous line provided List<Object> instead of List<T>
-            //       because "l'argument List<T> dans new TypeReference<List<T>>(){} est un type générique non résolu".
             itemList = mapper.readValue(jsonStr, mapper.getTypeFactory().constructCollectionType(List.class, clazz));
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -62,13 +76,35 @@ public class HttpAsyncGet<T>{
         return itemList;
     }
 
+    /**
+     *
+     * @param progressDialog
+     */
+
     public void onPreExecute( ProgressDialog progressDialog ) {
         progressDialog.setMessage("Connexion en cours...");
         progressDialog.setCancelable(false);
         progressDialog.show();
     }
 
+
+
+
     static class HttpHandler { //innerClass
+
+
+        /**
+         *
+         * @param reqUrl
+         *
+         * @see HttpURLConnection
+         * @see URL
+         * @see InputStream
+         *
+         * @return response
+         *
+         *
+         */
 
         public String makeServiceCall(String reqUrl) {
             String response = null;
@@ -90,6 +126,16 @@ public class HttpAsyncGet<T>{
             }
             return response;
         }
+
+
+        /**
+         *
+         * @param inputStream
+         *
+         * 
+         *
+         * @return
+         */
 
         //Conversion flux en String
         private String convertStreamToString(InputStream inputStream) {
