@@ -16,6 +16,13 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class AnnonceActivity extends AppCompatActivity implements PostExecuteActivity<Utilisateur>{
+    /**
+     * Cette activité affiche les détails d'une annonce, y compris son libellé, sa description,
+     * son prix, sa date de création, son état, l'utilisateur associé et une image illustrative.
+     * Elle permet également à l'utilisateur de revenir à l'activité précédente en appuyant sur un bouton.
+     * Si l'utilisateur clique sur l'image de profil de l'utilisateur associé à l'annonce, cela l'amène
+     * à une autre activité affichant les détails de cet utilisateur.
+     */
 
     private Utilisateur utilisateur;
     private TextView profilName;
